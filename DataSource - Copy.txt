@@ -7,7 +7,3 @@ Nhcy,BANK2,0.94,true,true
 Jtra,BANK1,1.31,false,false
 Zlli,BANK4,3.29,true,false
 Uhli,BANK1,1.31,true,false
-Khvm,BANK4
-Arbk,BANK2
-Ijjh,BANK1
-Dnrx,BANK3
