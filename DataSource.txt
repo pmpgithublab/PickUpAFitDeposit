@@ -1,0 +1,9 @@
+Bujp,BANK2,3.93,true,true
+Geho,BANK3,3.29,false,true
+Wqyb,BANK3,1.69,false,false
+Bgwl,BANK4,1.31,true,true
+Wnde,BANK1,1.31,false,true
+Nhcy,BANK2,0.94,true,true
+Jtra,BANK1,1.31,false,false
+Zlli,BANK4,3.29,true,false
+Uhli,BANK1,1.31,true,false
