@@ -35,7 +35,7 @@ public class Controller {
 
         // set Locale
         //view.changeLocale(Locale.ENGLISH);
-        view.changeLocale(new Locale("ua", "UA"));
+        view.changeLocale(new Locale("uk", "UA"));
 
         getData();
         runSorts();
