@@ -7,17 +7,17 @@ package ua.testing.view.entity;
 
 public interface Constants {
 
-    String MESSAGE_PROFIT_ = "MESSAGE_PROFIT";
-    String MESSAGE_PROFIT_REPLENISHMENT = "MESSAGE_PROFIT_REPLENISHMENT";
-    String MESSAGE_PROFIT_EARLY_WITHDRAWAL = "MESSAGE_PROFIT_EARLY_WITHDRAWAL";
-    String MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL = "MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL";
+    String MESSAGE_PROFIT_RESOURCE = "message.profit";
+    String MESSAGE_PROFIT_REPLENISHMENT_RESOURCE = "message.profit.replenishment";
+    String MESSAGE_PROFIT_EARLY_WITHDRAWAL_RESOURCE = "message.profit.early.withdrawal";
+    String MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL_RESOURCE = "message.profit.replenishment.early.withdrawal";
 
     // use in deposit toString()
-    String DEPOSIT_PROGRAMM_TO_STRING = "DEPOSIT_PROGRAMM_TO_STRING";
-    String BANK_TO_STRING = "BANK_TO_STRING";
-    String PROFIT_TO_STRING = "PROFIT_TO_STRING";
-    String REPLANISHMENT_TO_STRING = "REPLANISHMENT_TO_STRING";
-    String EARLY_WITHDRAWAL_TO_STRING = "EARLY_WITHDRAWAL_TO_STRING";
-    String CLOSED_BRACKET = "CLOSED_BRACKET";
+    String DEPOSIT_PROGRAM_TO_STRING_RESOURCE = "deposit.program.to.string";
+    String BANK_TO_STRING_RESOURCE = "bank.to.string";
+    String PROFIT_TO_STRING_RESOURCE = "profit.to.string";
+    String REPLENISHMENT_TO_STRIN_RESOURCEG = "replenishment.to.string";
+    String EARLY_WITHDRAWAL_TO_STRING_RESOURCE = "early.withdrawal.to.string";
+    String CLOSED_BRACKET_RESOURCE = "closed.bracket";
 
 }

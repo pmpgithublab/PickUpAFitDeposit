@@ -32,13 +32,14 @@ public class Controller {
     }
 
     public void processing() {
-        getData();
 
         // set Locale
         //view.changeLocale(Locale.ENGLISH);
-        //view.changeLocale(new Locale("ua", "UA"));
+        view.changeLocale(new Locale("ua", "UA"));
 
+        getData();
         runSorts();
+
     }
 
     private void runSorts() {

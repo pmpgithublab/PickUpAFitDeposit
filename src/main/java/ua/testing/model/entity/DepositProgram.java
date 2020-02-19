@@ -8,8 +8,6 @@
 package ua.testing.model.entity;
 
 
-import ua.testing.view.View;
-
 /**
  * Class for keeping contribution data.
  *
