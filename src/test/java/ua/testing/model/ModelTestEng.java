@@ -10,12 +10,9 @@ package ua.testing.model;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.testing.controller.services.GeneratorTestData;
-import ua.testing.model.entity.AccountProgram;
 import ua.testing.model.entity.DepositComparator;
 import ua.testing.model.entity.DepositProgram;
 import ua.testing.view.View;
-
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +28,7 @@ public class ModelTestEng {
 
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
         model.setDepositesPrograms(new GeneratorTestData().testDataRead());
     }
 

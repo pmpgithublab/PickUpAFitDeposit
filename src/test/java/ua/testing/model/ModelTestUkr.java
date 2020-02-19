@@ -31,7 +31,7 @@ public class ModelTestUkr {
 
 
     @BeforeClass
-    public static void init(){
+    public static void init() {
         model.setDepositesPrograms(new GeneratorTestData().testDataRead());
         view.changeLocale(new Locale("ua", "UA"));
     }
