@@ -3,6 +3,8 @@
  *
  * This software is free for use.
  */
+
+
 package ua.testing.view.entity;
 
 import java.util.Locale;

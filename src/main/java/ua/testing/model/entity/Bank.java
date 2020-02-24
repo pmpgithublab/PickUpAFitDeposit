@@ -7,11 +7,6 @@
 package ua.testing.model.entity;
 
 
-import ua.testing.view.View;
-
-import java.util.Locale;
-
-
 /**
  * Consist enumeration of banks;
  *

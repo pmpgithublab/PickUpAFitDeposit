@@ -19,19 +19,20 @@ import java.util.*;
  * @version 1.00 11 Feb 2020
  */
 public class Model {
-    Set<AccountProgram> depositesPrograms = new HashSet<>();
+    private Set<AccountProgram> accountPrograms = new HashSet<>();
 
-    public void setDepositesPrograms(Set<AccountProgram> depositesPrograms) {
-        this.depositesPrograms = depositesPrograms;
+    public void setAccountPrograms(Set<AccountProgram> accountPrograms) {
+        this.accountPrograms = accountPrograms;
     }
 
-    public TreeSet getSortedDeposits(Class clazz, Comparator comparator) {
-        TreeSet result = new TreeSet(comparator);
-        for (AccountProgram accountProgram : depositesPrograms) {
-            if (accountProgram.getClass() == clazz) {
-                result.add(accountProgram);
-            }
-        }
+    public Set<AccountProgram> getAccountPrograms() {
+        return accountPrograms;
+    }
+
+    public TreeSet<AccountProgram> getSortedDeposits(Comparator<AccountProgram> comparator) {
+        TreeSet<AccountProgram> result = new TreeSet<>(comparator);
+        result.addAll(accountPrograms);
         return result;
     }
+
 }

@@ -25,13 +25,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class GeneratorTestData {
 
-    public Set testDepositGenerate(int count) {
-        Set<DepositProgram> result = new HashSet<>();
+    public Set<AccountProgram> testDepositGenerate(int count) {
+        Set<AccountProgram> result = new HashSet<>();
         Random random = new Random(System.currentTimeMillis());
         while (result.size() < count) {
             result.add(new DepositProgram(nameGeneration(3),
                     Bank.values()[random.nextInt(Bank.values().length - 1)],
-                    Math.abs(random.nextDouble() * 10 - 5),
+                    //Math.abs(random.nextDouble() * 10 - 5),
+                    random.nextInt(6),
                     random.nextBoolean(),
                     random.nextBoolean()));
         }
@@ -58,7 +59,7 @@ public class GeneratorTestData {
     public Set<AccountProgram> testDataRead() {
         Set<AccountProgram> result = new HashSet<>();
         String line;
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Max\\Projects\\Java\\EPAM\\Tasks\\Task4(PickUpAFitDeposit)\\DataSource.txt"));) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("DataSource.txt"))) {
             while (true) {
                 if (((line = bufferedReader.readLine()) != null)) {
                     result.add(createItem(line));
@@ -76,7 +77,7 @@ public class GeneratorTestData {
     private DepositProgram createItem(String toParse) {
         String[] data = toParse.split(",");
         if (data.length == 5) {
-            return new DepositProgram(data[0], Bank.valueOf(data[1]), Double.valueOf(data[2]), Boolean.valueOf(data[3]), Boolean.valueOf(data[4]));
+            return new DepositProgram(data[0], Bank.valueOf(data[1]), Integer.parseInt(data[2]), Boolean.parseBoolean(data[3]), Boolean.parseBoolean(data[4]));
         }
         return null;
     }

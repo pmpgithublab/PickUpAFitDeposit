@@ -47,4 +47,10 @@ public abstract class AccountProgram {
         return bank;
     }
 
+    public abstract double getProfitPercent();
+
+    public abstract boolean isReplenishment();
+
+    public abstract boolean isEarlyWithdrawal();
+
 }

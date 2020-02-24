@@ -8,8 +8,6 @@
 package ua.testing.model.entity;
 
 
-import ua.testing.view.View;
-
 /**
  * Class for keeping contribution data.
  *
@@ -17,19 +15,26 @@ import ua.testing.view.View;
  * @version 1.00 11 Feb 2020
  */
 public class DepositProgram extends AccountProgram {
-    private double profitPercent;
+    private long profitPercent;
     private boolean replenishment;
     private boolean earlyWithdrawal;
 
     public DepositProgram(String name, Bank bank, double profitPercent, boolean replenishment, boolean earlyWithdrawal) {
         super(name, bank);
-        this.profitPercent = profitPercent;
+        this.profitPercent = (long) profitPercent * 100;
+        this.replenishment = replenishment;
+        this.earlyWithdrawal = earlyWithdrawal;
+    }
+
+    public DepositProgram(String name, Bank bank, int profitPercentMultiple100, boolean replenishment, boolean earlyWithdrawal) {
+        super(name, bank);
+        this.profitPercent = profitPercentMultiple100;
         this.replenishment = replenishment;
         this.earlyWithdrawal = earlyWithdrawal;
     }
 
     public double getProfitPercent() {
-        return profitPercent;
+        return (double) profitPercent / 100;
     }
 
     public boolean isReplenishment() {

@@ -9,11 +9,10 @@ package ua.testing.controller;
 
 import ua.testing.controller.services.GeneratorTestData;
 import ua.testing.model.Model;
-import ua.testing.model.entity.DepositComparator;
-import ua.testing.model.entity.DepositProgram;
+import ua.testing.model.entity.AccountProgram;
 import ua.testing.view.View;
 
-import java.util.Locale;
+import java.util.Comparator;
 
 
 /**
@@ -32,40 +31,126 @@ public class Controller {
     }
 
     public void processing() {
-        getData();
 
         // set Locale
-        //view.changeLocale(Locale.ENGLISH);
-        //view.changeLocale(new Locale("ua", "UA"));
+        // view.changeLocale(Locale.ENGLISH);
+        // view.changeLocale(new Locale("uk", "UA"));
+
+        getData();
 
         runSorts();
-    }
 
-    private void runSorts() {
-        boolean isReplenishment = true;
-        boolean isEarlyWithdrawal = true;
-
-        // sort only by profit
-        view.showMessage(view.MESSAGE_PROFIT);
-        view.showMessage(view.depositProgramsToString(model.getSortedDeposits(DepositProgram.class, new DepositComparator())));
-
-        // sort by profit and replenishment
-        view.showMessage(view.MESSAGE_PROFIT_REPLENISHMENT);
-        view.showMessage(view.depositProgramsToString(model.getSortedDeposits(DepositProgram.class, new DepositComparator(isReplenishment))));
-
-        //sort by profit and early withdrawal
-        view.showMessage(view.MESSAGE_PROFIT_EARLY_WITHDRAWAL);
-        view.showMessage(view.depositProgramsToString(model.getSortedDeposits(DepositProgram.class, new DepositComparator(!isReplenishment, isEarlyWithdrawal))));
-
-        //sort by profit and replenishment and early withdrawal
-        view.showMessage(view.MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL);
-        view.showMessage(view.depositProgramsToString(model.getSortedDeposits(DepositProgram.class, new DepositComparator(isReplenishment, isEarlyWithdrawal))));
     }
 
     private void getData() {
         // XXX fill test data
-        model.setDepositesPrograms(new GeneratorTestData().testDataRead());
-        // model.setDepositesPrograms(new GeneratorTestData().testDepositGenerate(10));
+        model.setAccountPrograms(new GeneratorTestData().testDataRead());
+
+    }
+
+    private void runSorts() {
+
+        view.showMessage(view.messageProfit);
+        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfit())));
+
+        view.showMessage(view.messageProfitReplenishment);
+        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfitAndReplenishment())));
+
+        view.showMessage(view.messageProfitEarlyWithdrawal);
+        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfitAndEarlyWithdrawal())));
+
+        view.showMessage(view.messageProfitReplenishmentEarlyWithdrawal);
+        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfitAndReplenishmentAndEarlyWithdrawal())));
+    }
+
+    public Comparator<AccountProgram> getAccountProgramComparatorByProfit() {
+        return (acc1, acc2) -> {
+            if (acc1 == acc2) return 0;
+            int result = compareProfit(acc1, acc2);
+            if (result != 0) {
+                return result;
+            }
+            return compareNameAndBank(acc1, acc2);
+        };
+    }
+
+    private int compareProfit(AccountProgram acc1, AccountProgram acc2) {
+        return Double.compare(acc2.getProfitPercent(), acc1.getProfitPercent());
+    }
+
+    private Comparator<AccountProgram> getAccountProgramComparatorByProfitAndReplenishment() {
+        return (acc1, acc2) -> {
+            if (acc1 == acc2) return 0;
+            int result = compareProfit(acc1, acc2);
+            if (result != 0) {
+                return result;
+            }
+            return compareReplenishment(acc1, acc2);
+        };
+    }
+
+    private int compareReplenishment(AccountProgram o1, AccountProgram o2) {
+        if (o1.isReplenishment() & !o2.isReplenishment()) {
+            return -1;
+        }
+        if (!o1.isReplenishment() & o2.isReplenishment()) {
+            return 1;
+        }
+
+        return compareNameAndBank(o1, o2);
+    }
+
+    private Comparator<AccountProgram> getAccountProgramComparatorByProfitAndEarlyWithdrawal() {
+        return (acc1, acc2) -> {
+            if (acc1 == acc2) return 0;
+            int result = compareProfit(acc1, acc2);
+            if (result != 0) {
+                return result;
+            }
+            return compareEarlyWithdrawal(acc1, acc2);
+        };
+    }
+
+    private int compareEarlyWithdrawal(AccountProgram o1, AccountProgram o2) {
+        if (o1.isEarlyWithdrawal() & !o2.isEarlyWithdrawal()) {
+            return -1;
+        }
+        if (!o1.isEarlyWithdrawal() & o2.isEarlyWithdrawal()) {
+            return 1;
+        }
+
+        return compareNameAndBank(o1, o2);
+    }
+
+    private Comparator<AccountProgram> getAccountProgramComparatorByProfitAndReplenishmentAndEarlyWithdrawal() {
+        return (acc1, acc2) -> {
+            if (acc1 == acc2) return 0;
+            int result = compareProfit(acc1, acc2);
+            if (result != 0) {
+                return result;
+            }
+            return compareReplenishmentAndEarlyWithdrawal(acc1, acc2);
+        };
+    }
+
+    private int compareReplenishmentAndEarlyWithdrawal(AccountProgram o1, AccountProgram o2) {
+        if ((o1.isReplenishment() & o1.isEarlyWithdrawal()) & !(o2.isReplenishment() & o2.isEarlyWithdrawal())) {
+            return -1;
+        }
+        if ((o2.isReplenishment() & o2.isEarlyWithdrawal()) & !(o1.isReplenishment() & o1.isEarlyWithdrawal())) {
+            return 1;
+        }
+
+        return compareNameAndBank(o1, o2);
+    }
+
+    private int compareNameAndBank(AccountProgram o1, AccountProgram o2) {
+        int compareBank = o1.getBank().compareTo(o2.getBank());
+        if (compareBank == 0) {
+            return o1.getName().compareTo(o2.getName());
+        }
+
+        return compareBank;
     }
 
 }
