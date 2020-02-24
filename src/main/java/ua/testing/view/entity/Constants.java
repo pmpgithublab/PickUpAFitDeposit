@@ -16,7 +16,7 @@ public interface Constants {
     String DEPOSIT_PROGRAM_TO_STRING_RESOURCE = "deposit.program.to.string";
     String BANK_TO_STRING_RESOURCE = "bank.to.string";
     String PROFIT_TO_STRING_RESOURCE = "profit.to.string";
-    String REPLENISHMENT_TO_STRIN_RESOURCEG = "replenishment.to.string";
+    String REPLENISHMENT_TO_STRING_RESOURCE = "replenishment.to.string";
     String EARLY_WITHDRAWAL_TO_STRING_RESOURCE = "early.withdrawal.to.string";
     String CLOSED_BRACKET_RESOURCE = "closed.bracket";
 

@@ -67,7 +67,7 @@ public class View implements Constants {
         depositProgramToString = resourceManager.getLocaleProperty(DEPOSIT_PROGRAM_TO_STRING_RESOURCE);
         bankToString = resourceManager.getLocaleProperty(BANK_TO_STRING_RESOURCE);
         profitToString = resourceManager.getLocaleProperty(PROFIT_TO_STRING_RESOURCE);
-        replenishmentToStrin = resourceManager.getLocaleProperty(REPLENISHMENT_TO_STRIN_RESOURCEG);
+        replenishmentToStrin = resourceManager.getLocaleProperty(REPLENISHMENT_TO_STRING_RESOURCE);
         earlyWithdrawalToString = resourceManager.getLocaleProperty(EARLY_WITHDRAWAL_TO_STRING_RESOURCE);
         closedBracket = resourceManager.getLocaleProperty(CLOSED_BRACKET_RESOURCE);
     }
