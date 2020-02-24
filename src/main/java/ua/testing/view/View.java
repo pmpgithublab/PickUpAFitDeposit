@@ -7,7 +7,7 @@
 package ua.testing.view;
 
 
-import ua.testing.model.entity.DepositProgram;
+import ua.testing.model.entity.AccountProgram;
 import ua.testing.view.entity.Constants;
 import ua.testing.view.entity.ResourceManager;
 
@@ -23,18 +23,18 @@ import java.util.TreeSet;
 public class View implements Constants {
     private ResourceManager resourceManager = ResourceManager.INSTANCE;
 
-    public String MESSAGE_PROFIT;
-    public String MESSAGE_PROFIT_REPLENISHMENT;
-    public String MESSAGE_PROFIT_EARLY_WITHDRAWAL;
-    public String MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL;
+    public String messageProfit;
+    public String messageProfitReplenishment;
+    public String messageProfitEarlyWithdrawal;
+    public String messageProfitReplenishmentEarlyWithdrawal;
 
     // use in deposit toString()
-    public String DEPOSIT_PROGRAM_TO_STRING;
-    public String BANK_TO_STRING;
-    public String PROFIT_TO_STRING;
-    public String REPLENISHMENT_TO_STRIN;
-    public String EARLY_WITHDRAWAL_TO_STRING;
-    public String CLOSED_BRACKET;
+    public String depositProgramToString;
+    public String bankToString;
+    public String profitToString;
+    public String replenishmentToStrin;
+    public String earlyWithdrawalToString;
+    public String closedBracket;
 
     public View() {
         initLocaleStrings();
@@ -58,31 +58,32 @@ public class View implements Constants {
     }
 
     private void initLocaleStrings() {
-        MESSAGE_PROFIT = resourceManager.getLocaleProperty(MESSAGE_PROFIT_RESOURCE);
-        MESSAGE_PROFIT_REPLENISHMENT = resourceManager.getLocaleProperty(MESSAGE_PROFIT_REPLENISHMENT_RESOURCE);
-        MESSAGE_PROFIT_EARLY_WITHDRAWAL = resourceManager.getLocaleProperty(MESSAGE_PROFIT_EARLY_WITHDRAWAL_RESOURCE);
-        MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL = resourceManager.getLocaleProperty(MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL_RESOURCE);
+        messageProfit = resourceManager.getLocaleProperty(MESSAGE_PROFIT_RESOURCE);
+        messageProfitReplenishment = resourceManager.getLocaleProperty(MESSAGE_PROFIT_REPLENISHMENT_RESOURCE);
+        messageProfitEarlyWithdrawal = resourceManager.getLocaleProperty(MESSAGE_PROFIT_EARLY_WITHDRAWAL_RESOURCE);
+        messageProfitReplenishmentEarlyWithdrawal = resourceManager.getLocaleProperty(MESSAGE_PROFIT_REPLENISHMENT_EARLY_WITHDRAWAL_RESOURCE);
 
         // use in deposit toString()
-        DEPOSIT_PROGRAM_TO_STRING = resourceManager.getLocaleProperty(DEPOSIT_PROGRAM_TO_STRING_RESOURCE);
-        BANK_TO_STRING = resourceManager.getLocaleProperty(BANK_TO_STRING_RESOURCE);
-        PROFIT_TO_STRING = resourceManager.getLocaleProperty(PROFIT_TO_STRING_RESOURCE);
-        REPLENISHMENT_TO_STRIN = resourceManager.getLocaleProperty(REPLENISHMENT_TO_STRIN_RESOURCEG);
-        EARLY_WITHDRAWAL_TO_STRING = resourceManager.getLocaleProperty(EARLY_WITHDRAWAL_TO_STRING_RESOURCE);
-        CLOSED_BRACKET = resourceManager.getLocaleProperty(CLOSED_BRACKET_RESOURCE);
+        depositProgramToString = resourceManager.getLocaleProperty(DEPOSIT_PROGRAM_TO_STRING_RESOURCE);
+        bankToString = resourceManager.getLocaleProperty(BANK_TO_STRING_RESOURCE);
+        profitToString = resourceManager.getLocaleProperty(PROFIT_TO_STRING_RESOURCE);
+        replenishmentToStrin = resourceManager.getLocaleProperty(REPLENISHMENT_TO_STRIN_RESOURCEG);
+        earlyWithdrawalToString = resourceManager.getLocaleProperty(EARLY_WITHDRAWAL_TO_STRING_RESOURCE);
+        closedBracket = resourceManager.getLocaleProperty(CLOSED_BRACKET_RESOURCE);
     }
 
-    public String depositProgramsToString(TreeSet<DepositProgram> depositPrograms) {
+    public String accountProgramsToString(TreeSet<AccountProgram> accountPrograms) {
         StringBuilder result = new StringBuilder();
-        for (DepositProgram depositProgram : depositPrograms) {
-            result.append(concatenatingStrings(DEPOSIT_PROGRAM_TO_STRING, depositProgram.getName(),
-                    BANK_TO_STRING, depositProgram.getBank().toString(),
-                    PROFIT_TO_STRING, Double.toString(depositProgram.getProfitPercent()),
-                    REPLENISHMENT_TO_STRIN, Boolean.toString(depositProgram.isReplenishment()),
-                    EARLY_WITHDRAWAL_TO_STRING, Boolean.toString(depositProgram.isEarlyWithdrawal()),
-                    CLOSED_BRACKET));
+        for (AccountProgram depositProgram : accountPrograms) {
+            result.append(concatenatingStrings(depositProgramToString, depositProgram.getName(),
+                    bankToString, depositProgram.getBank().toString(),
+                    profitToString, Double.toString(depositProgram.getProfitPercent()),
+                    replenishmentToStrin, Boolean.toString(depositProgram.isReplenishment()),
+                    earlyWithdrawalToString, Boolean.toString(depositProgram.isEarlyWithdrawal()),
+                    closedBracket));
         }
 
         return result.toString();
     }
+
 }
