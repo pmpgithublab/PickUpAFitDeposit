@@ -43,7 +43,7 @@ public class Controller {
     }
 
     private void getData() {
-        // XXX fill test data
+        // fill test data
         model.setAccountPrograms(new GeneratorTestData().testDataRead());
 
     }
@@ -51,106 +51,35 @@ public class Controller {
     private void runSorts() {
 
         view.showMessage(view.messageProfit);
-        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfit())));
+        sortAndShow(Comparator.comparingDouble(AccountProgram::getProfitPercent).
+                reversed().
+                thenComparing(AccountProgram::getBank).
+                thenComparing(AccountProgram::getName));
 
         view.showMessage(view.messageProfitReplenishment);
-        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfitAndReplenishment())));
+        sortAndShow(Comparator.comparingDouble(AccountProgram::getProfitPercent).
+                thenComparing(AccountProgram::isReplenishment).
+                reversed().
+                thenComparing(AccountProgram::getBank).
+                thenComparing(AccountProgram::getName));
 
         view.showMessage(view.messageProfitEarlyWithdrawal);
-        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfitAndEarlyWithdrawal())));
+        sortAndShow(Comparator.comparingDouble(AccountProgram::getProfitPercent).
+                thenComparing(AccountProgram::isEarlyWithdrawal).
+                reversed().
+                thenComparing(AccountProgram::getBank).
+                thenComparing(AccountProgram::getName));
 
         view.showMessage(view.messageProfitReplenishmentEarlyWithdrawal);
-        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(getAccountProgramComparatorByProfitAndReplenishmentAndEarlyWithdrawal())));
+        sortAndShow(Comparator.comparingDouble(AccountProgram::getProfitPercent).
+                thenComparing(AccountProgram::isReplenishment).
+                thenComparing(AccountProgram::isEarlyWithdrawal).
+                reversed().
+                thenComparing(AccountProgram::getBank).
+                thenComparing(AccountProgram::getName));
     }
 
-    public Comparator<AccountProgram> getAccountProgramComparatorByProfit() {
-        return (acc1, acc2) -> {
-            if (acc1 == acc2) return 0;
-            int result = compareProfit(acc1, acc2);
-            if (result != 0) {
-                return result;
-            }
-            return compareNameAndBank(acc1, acc2);
-        };
+    private void sortAndShow(Comparator<AccountProgram> comparator) {
+        view.showMessage(view.accountProgramsToString(model.getSortedDeposits(comparator)));
     }
-
-    private int compareProfit(AccountProgram acc1, AccountProgram acc2) {
-        return Double.compare(acc2.getProfitPercent(), acc1.getProfitPercent());
-    }
-
-    private Comparator<AccountProgram> getAccountProgramComparatorByProfitAndReplenishment() {
-        return (acc1, acc2) -> {
-            if (acc1 == acc2) return 0;
-            int result = compareProfit(acc1, acc2);
-            if (result != 0) {
-                return result;
-            }
-            return compareReplenishment(acc1, acc2);
-        };
-    }
-
-    private int compareReplenishment(AccountProgram o1, AccountProgram o2) {
-        if (o1.isReplenishment() & !o2.isReplenishment()) {
-            return -1;
-        }
-        if (!o1.isReplenishment() & o2.isReplenishment()) {
-            return 1;
-        }
-
-        return compareNameAndBank(o1, o2);
-    }
-
-    private Comparator<AccountProgram> getAccountProgramComparatorByProfitAndEarlyWithdrawal() {
-        return (acc1, acc2) -> {
-            if (acc1 == acc2) return 0;
-            int result = compareProfit(acc1, acc2);
-            if (result != 0) {
-                return result;
-            }
-            return compareEarlyWithdrawal(acc1, acc2);
-        };
-    }
-
-    private int compareEarlyWithdrawal(AccountProgram o1, AccountProgram o2) {
-        if (o1.isEarlyWithdrawal() & !o2.isEarlyWithdrawal()) {
-            return -1;
-        }
-        if (!o1.isEarlyWithdrawal() & o2.isEarlyWithdrawal()) {
-            return 1;
-        }
-
-        return compareNameAndBank(o1, o2);
-    }
-
-    private Comparator<AccountProgram> getAccountProgramComparatorByProfitAndReplenishmentAndEarlyWithdrawal() {
-        return (acc1, acc2) -> {
-            if (acc1 == acc2) return 0;
-            int result = compareProfit(acc1, acc2);
-            if (result != 0) {
-                return result;
-            }
-            return compareReplenishmentAndEarlyWithdrawal(acc1, acc2);
-        };
-    }
-
-    private int compareReplenishmentAndEarlyWithdrawal(AccountProgram o1, AccountProgram o2) {
-        if ((o1.isReplenishment() & o1.isEarlyWithdrawal()) & !(o2.isReplenishment() & o2.isEarlyWithdrawal())) {
-            return -1;
-        }
-        if ((o2.isReplenishment() & o2.isEarlyWithdrawal()) & !(o1.isReplenishment() & o1.isEarlyWithdrawal())) {
-            return 1;
-        }
-
-        return compareNameAndBank(o1, o2);
-    }
-
-    private int compareNameAndBank(AccountProgram o1, AccountProgram o2) {
-        int compareBank = o1.getBank().compareTo(o2.getBank());
-        if (compareBank == 0) {
-            return o1.getName().compareTo(o2.getName());
-        }
-
-        return compareBank;
-    }
-
 }
